@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.tsx",
   "scripts": {
-    "test": "start index"
+    "start": "node index.tsx"
   },
   "author": "vitor",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
+    "md5": "^2.3.0",
     "pg": "^8.8.0",
     "sequelize": "^6.25.6"
   }

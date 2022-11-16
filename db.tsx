@@ -1,4 +1,4 @@
-const config = require('./config')
+const config = require('./config.tsx')
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize(config);
 

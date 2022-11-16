@@ -4,6 +4,6 @@ const con = {
     port:'5432',
     database:'test',
     username:'postgres',
-    password:''
+    password:'nanatsu'
 }
 module.exports = con
