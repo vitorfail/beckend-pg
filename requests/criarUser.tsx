@@ -9,12 +9,14 @@ module.exports = async function (user, pass){
     })
     if(result.length === 0){
         try{
-            tabelas.tabela_contas.create({
+            const resultado = await tabelas.tabela_contas.create({
                 balance:100
-            }).then(tabelas.tabela_user.create({
+            })
+            tabelas.tabela_user.create({
                 username:(user),
                 password:(md5(pass)),
-            }))
+                accountId: resultado.id
+            })
             return 1;
         }
         catch(error){
