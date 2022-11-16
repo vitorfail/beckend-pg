@@ -1,18 +1,11 @@
-const criar = require('./requests/criarUser.tsx')
-const login = require('./requests/login.tsx')
-async function teste (){
-    try{
-        const database = require('./db.tsx');
-        const tabelas = require('./tabelas.tsx');
-        await database.sync();
-        var result = await login('lucirene', '123123123213')
-        // sign with RSA SHA256
-        console.log(result)
 
-    }
-    catch(error){
-        console.log(error)
-    }
-}
+const express = require('express')
+const routelogin = require('./api/login')
+const app = express()
 
-teste()
+app.use(express.json({ extended: false }))
+app.use('/api/cadastro', routelogin)
+
+const Port = process.env.PORT ||8080;
+app.listen(Port, () => console.log("Servidor rodando na porta "+Port))
+
