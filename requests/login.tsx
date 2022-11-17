@@ -12,10 +12,10 @@ module.exports = async function (user, pass){
             }
         })
         if(result.length === 0){
-            return 0
+            return 'Not found'
         }
         else{
-            var token = jwt.sign({ nome:result[0].dataValues.username}, process.env.PRIVATE_KEY, { expiresIn: 300});
+            var token = jwt.sign({ id:result[0].dataValues.id}, process.env.PRIVATE_KEY, { expiresIn: 300});
             return token;
         }    
     }
