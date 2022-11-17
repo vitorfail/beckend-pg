@@ -19,9 +19,8 @@ function testando(){
 router2.post('/', async (req, res) =>{
     try{
         var checando = await Check(req)
-        if(checando){
-            var resultado = await teste(req.body.user, req.body.pass)
-            res.status(200).send(resultado)    
+        if(checando == true){
+            res.status(200).send('Deu certo')    
         }
         else{
             res.status(200).send("USER_ERROR")

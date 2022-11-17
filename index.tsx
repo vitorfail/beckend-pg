@@ -1,5 +1,5 @@
 
-const express = require('express')
+var express = require('express')
 const routelogin = require('./api/login.tsx')
 const routehome = require('./api/home.tsx')
 const app = express()
@@ -12,7 +12,7 @@ async function incio(){
 }
 incio()
 app.use(express.json({ extended: false }))
-app.use('/api/cadastro', routelogin)
+app.use('/api/login', routelogin)
 app.use('/api/home', routehome)
 
 const Port = process.env.PORT ||8080;
