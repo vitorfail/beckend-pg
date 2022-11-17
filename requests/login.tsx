@@ -15,11 +15,11 @@ module.exports = async function (user, pass){
             return 0
         }
         else{
-            var token = jwt.sign({ nome:result.id}, process.env.PRIVATE_KEY, { expiresIn: 300});
+            var token = jwt.sign({ nome:result[0].dataValues.username}, process.env.PRIVATE_KEY, { expiresIn: 300});
             return token;
         }    
     }
     catch{
-        return null
+        return 'nada'
     }
 };

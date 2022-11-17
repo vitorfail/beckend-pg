@@ -5,15 +5,12 @@ const router = express1.Router();
 
 async function teste(user, pass){
     try{
-        const database = require('./db.tsx');
-        const tabelas = require('./tabelas.tsx');
-        await database.sync();
-        var result = await login('lucirene', '123123123213')
+        var result = await login(user, pass)
         // sign with RSA SHA256
         return result
     }
     catch(error){
-        return null
+        return 'nada'
     }
 }
 router.post('/', async (req, res) =>{
