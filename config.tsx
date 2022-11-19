@@ -1,9 +1,10 @@
+require('dotenv').config();
 const con = {
-    dialect:'postgres',
-    host:'localhost',
-    port:'5432',
-    database:'test',
-    username:'postgres',
-    password:'nanatsu'
+    dialect:process.env.DIALECT,
+    host:process.env.HOST,
+    port:process.env.PORTA,
+    database:process.env.DATABASE,
+    username:process.env.USER,
+    password:process.env.PASSWORD
 }
 module.exports = con

@@ -1,7 +1,9 @@
 const tabelas = require('../tabelas.tsx')
 const md5 = require('md5');
+const expres = require('express');
+const rout = expres.Router(); 
 
-module.exports = async function (user, pass){
+async function criar(user, pass){
     var result = await tabelas.tabela_user.findAll({
         where:{
             username:(user)
@@ -24,6 +26,17 @@ module.exports = async function (user, pass){
         }
     }
     else{
-        return 0;
+        return 'Not found';
     }
 };
+
+rout.post('/', async (req, res) =>{
+    try{
+        var resultado = await criar(req.body.user, req.body.pass)
+        res.status(200).send(resultado)
+    }
+    catch(error){
+        res.status(200).send(null)
+    }
+})
+module.exports = rout;

@@ -58,8 +58,7 @@ const Transactions = database.define('Transactions', {
         allowNull:false,
     },
     createdAt:{
-        type: Sequelize1.STRING,
-        allowNull:false,
+        type: Sequelize1.STRING
     }
 })
 Accounts.hasMany(Transactions)

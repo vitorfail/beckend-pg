@@ -2,6 +2,8 @@
 var express = require('express')
 const routelogin = require('./api/login.tsx')
 const routehome = require('./api/home.tsx')
+const routecadastro = require('./api/cadastro.tsx')
+const routepagamento = require('./api/pagamentos.tsx')
 const app = express()
 var cors = require('cors')
 
@@ -22,6 +24,8 @@ app.use(express.json({ extended: false }))
 
 app.use('/api/login', routelogin)
 app.use('/api/home', routehome)
+app.use('/api/cadastro', routecadastro)
+app.use('/api/pagamento', routepagamento)
 
 const Port = process.env.PORT ||8080;
 app.listen(Port, () => console.log("Servidor rodando na porta "+Port))
