@@ -1,39 +1,41 @@
 const express3 = require('express');
+const { Op } = require('sequelize')
 const routas = express3.Router();
 var Check3 = require('./checkUser.tsx')
 const tablelas = require('../tabelas.tsx') 
 var jwt = require('jsonwebtoken');
-
-async function historico(req){
+var json_array = require('./criar_historico.js')
+async function check_historico(req){
     try{
         var autorization = jwt.decode(req.headers.authorization.replace('Bearer ', ''))
-        var resultado = await tablelas.tabela_contas.findAll({
+        var resultado = await tablelas.tabela_trf.findAll({
             where:{
-                id:autorization.id
+                [Op.or]:[
+                    {debitedAccountId:autorization.id},
+                    {creditedAccountId:autorization.id}
+                ]
             }
         })
         if(resultado.length == 0){
             return 0
         }
         else{
-            return parseFloat(resultado[0].dataValues.balance)
+
+            var j = json_array(resultado)
+            return j
         }
     }
     catch(error){
-        return 'nada'
+        return 'ERROR'
     }
 }
 
 routas.post('/', async (req, res) =>{
     try{
-        var checando = await Check(req)
+        var checando = await Check3(req)
         if(checando == true){
-            var saldo = await check_saldo(req)
-            var saidas = await check_retiradas(req)
-            var entradas = await check_entradas(req)
-            var nome = await check_nome(req)
-            var score = 100
-            res.status(200).send(JSON.stringify({score:score, saldo: saldo, saidas:saidas, entradas: entradas, nome:nome}))    
+            var historico = await check_historico(req)
+            res.status(200).send(JSON.stringify({historico}))    
         }
         else{
             res.status(200).send("USER_ERROR")
@@ -43,4 +45,4 @@ routas.post('/', async (req, res) =>{
         res.status(200).send(null)
     }
 })
-module.exports = router2;
+module.exports = routas;

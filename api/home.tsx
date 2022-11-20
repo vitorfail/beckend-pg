@@ -1,10 +1,8 @@
-const json_array =require("./criar_historico.js");
 const express2 = require('express');
 const router2 = express2.Router();
 const Check = require('./checkUser.tsx')
 const table = require('../tabelas.tsx') 
 var jwt = require('jsonwebtoken');
-const { Op } = require("sequelize");
 
 
 async function check_saldo(req){
@@ -84,30 +82,7 @@ async function check_nome(req){
         return 'nada'
     }
 }
-async function check_historico(req){
-    try{
-        var autorization = jwt.decode(req.headers.authorization.replace('Bearer ', ''))
-        var resultado = await table.tabela_trf.findAll({
-            where:{
-                [Op.or]:[
-                    {debitedAccountId:autorization.id},
-                    {creditedAccountId:autorization.id}
-                ]
-            }
-        })
-        if(resultado.length == 0){
-            return 0
-        }
-        else{
 
-            var j = json_array(resultado)
-            return j
-        }
-    }
-    catch(error){
-        return 'ERROR'
-    }
-}
 router2.post('/', async (req, res) =>{
     try{
         var checando = await Check(req)
@@ -116,9 +91,8 @@ router2.post('/', async (req, res) =>{
             var saidas = await check_retiradas(req)
             var entradas = await check_entradas(req)
             var nome = await check_nome(req)
-            var historico = await check_historico(req)
             var score = 100
-            res.status(200).send(JSON.stringify({score:score, saldo: saldo, saidas:saidas, entradas: entradas, nome:nome, historico:historico}))    
+            res.status(200).send(JSON.stringify({score:score, saldo: saldo, saidas:saidas, entradas: entradas, nome:nome}))    
         }
         else{
             res.status(200).send("USER_ERROR")
