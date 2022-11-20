@@ -22,7 +22,7 @@ async function check_historico(req){
         else{
 
             var j = json_array(resultado)
-            return j
+            return {dados:j, id:autorization.id}
         }
     }
     catch(error){
