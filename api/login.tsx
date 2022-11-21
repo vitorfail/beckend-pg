@@ -18,7 +18,7 @@ async function login (user, pass){
             return 'Not found'
         }
         else{
-            var token = jwt.sign({ id:result[0].dataValues.id}, process.env.PRIVATE_KEY, { expiresIn: '24h'});
+            var token = jwt.sign({ id:result[0].dataValues.id}, process.env.PRIVATE_KEY, { expiresIn: process.evn.TOKEN_TIME});
             return token;
         }    
     }
